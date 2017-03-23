@@ -9,6 +9,10 @@ int lexLen;
 int token;
 int nextToken;
 FILE *in_fp, *fopen();
+char * expression = NULL;
+size_t len = 0;
+ssize_t read;
+int current;
 
 /* Function declarations */
 void addChar();
@@ -42,9 +46,18 @@ int main() {
   if ((in_fp = fopen("front.in", "r")) == NULL)
     printf("ERROR - cannot open front.in \n");
   else {
-    while ((read = getline(&line, &len, in_fp)) != -1) {
-      printf("Retrieved line of length %zu :\n", read);
-      printf("%s", line);
+    while ((read = getline(&expression, &len, in_fp)) != -1) {
+      printf("Retrieved line of length %zu :\n", read-1);
+      //storing the line retrived from the file in variable expression
+      printf("Analysis for the expression: %s", expression);
+      current = 0;
+      getChar();
+      if (expression != NULL){
+        do {
+          lex();
+          expr();
+        } while (nextToken != EOF);
+      }
     }
     // getChar();
     // do {
@@ -111,7 +124,7 @@ void addChar() {
 /*****************************************************/
 /* getChar - a function to get the next character of
 input and determine its character class */
-void getChar() {
+void getCharOld() {
   if ((nextChar = getc(in_fp)) != EOF) {
     if (isalpha(nextChar))
     charClass = LETTER;
@@ -123,6 +136,26 @@ void getChar() {
     else
     charClass = EOF;
 }
+
+
+/******************************************************/
+//modified get char
+void getChar() {
+  if (expression[current] != '\n' && expression[current] != EOF) {
+    nextChar = expression[current];
+    current++;
+    if (isalpha(nextChar))
+    charClass = LETTER;
+    else if (isdigit(
+      nextChar))
+      charClass = DIGIT;
+      else charClass = UNKNOWN;
+    }
+    else
+    charClass = EOF;
+}
+
+
 
 
 /*****************************************************/
@@ -253,5 +286,5 @@ void factor() {
 
 
 void error(){
-  //printf("error function called\n");
+  printf("error function called\n");
 }
