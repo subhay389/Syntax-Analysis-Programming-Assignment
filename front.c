@@ -47,16 +47,20 @@ int main() {
     printf("ERROR - cannot open front.in \n");
   else {
     while ((read = getline(&expression, &len, in_fp)) != -1) {
-      printf("Retrieved line of length %zu :\n", read-1);
+      printf("\nRetrieved line of length %zu :\n", read-1);
       //storing the line retrived from the file in variable expression
-      printf("Analysis for the expression: %s", expression);
-      current = 0;
-      getChar();
-      if (expression != NULL){
-        do {
-          lex();
-          expr();
-        } while (nextToken != EOF);
+      if(read-1 != 0){
+        printf("Analysis for the expression: %s", expression);
+        current = 0;
+        getChar();
+        if (expression != NULL){
+          do {
+            lex();
+            expr();
+          } while (nextToken != EOF);
+        }
+      }else{
+        printf("This was a blank line\n");
       }
     }
     // getChar();
