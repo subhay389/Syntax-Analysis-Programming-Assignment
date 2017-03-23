@@ -6,6 +6,7 @@
 /* Variables */
 int charClass;
 char lexeme [100];
+char previouslexeme [100];
 char errorstring[100];
 char nextChar;
 int lexLen;
@@ -16,6 +17,7 @@ char * expression = NULL;
 size_t len = 0;
 ssize_t read;
 int current;
+int temp;
 
 /* Function declarations */
 void addChar();
@@ -157,6 +159,7 @@ void getChar() {
   if (expression[current] != '\n' && expression[current] != EOF) {
     nextChar = expression[current];
     errorstring[current] = nextChar;
+    temp = current;
     current++;
 
     if (isalpha(nextChar))
@@ -190,6 +193,7 @@ expressions */
 int lex() {
   lexLen = 0;
   getNonBlank();
+  strcpy(previouslexeme, lexeme);
   switch (charClass) {
 
   /* Parse identifiers */
@@ -227,7 +231,7 @@ int lex() {
     lexeme[3] = 0;
     break;
   } /* End of switch */
-  printf("Next token is: %d, Next lexeme is %s\n",
+  printf("-->Next token is: %d, Next lexeme is %s\n",
   nextToken, lexeme);
   return nextToken;
 } /* End of function lex */
@@ -303,7 +307,15 @@ void factor() {
 
 
 void error(){
-  printf("error function called\n");
-  printf("Error expression %s\n", errorstring);
-  printf("Error in: %s\n", lexeme);
+  if (strcmp(lexeme, "EOF") == 0){
+    printf("error function called\n");
+    printf("Error expression %s\n", errorstring);
+    //printf("Error in: %s\n", lexeme);
+    //printf("Error in: %c\n", errorstring[temp]);
+  }
+  else{
+    printf("error function called\n");
+    printf("Error expression %s\n", errorstring);
+    printf("Error in: %s\n", lexeme);
+  }
 }
