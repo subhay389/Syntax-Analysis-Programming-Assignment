@@ -41,33 +41,38 @@ void error();
 
 /******************************************************/
 /* main driver */
-int main() {
+int main(int argc, char *argv[]) {
   /* Open the input data file and process its contents */
-  if ((in_fp = fopen("front.in", "r")) == NULL)
-    printf("ERROR - cannot open front.in \n");
-  else {
-    while ((read = getline(&expression, &len, in_fp)) != -1) {
-      printf("\nRetrieved line of length %zu :\n", read-1);
-      //storing the line retrived from the file in variable expression
-      if(read-1 != 0){
-        printf("Analysis for the expression: %s", expression);
-        current = 0;
-        getChar();
-        if (expression != NULL){
-          do {
-            lex();
-            expr();
-          } while (nextToken != EOF);
+  if (argc == 1){
+    if ((in_fp = fopen("front.in", "r")) == NULL)
+      printf("ERROR - cannot open front.in \n");
+    else {
+      while ((read = getline(&expression, &len, in_fp)) != -1) {
+        printf("\nRetrieved line of length %zu :\n", read-1);
+        //storing the line retrived from the file in variable expression
+        if(read-1 != 0){
+          printf("Analysis for the expression: %s", expression);
+          current = 0;
+          getChar();
+          if (expression != NULL){
+            do {
+              lex();
+              expr();
+            } while (nextToken != EOF);
+          }
+        }else{
+          printf("This was a blank line\n");
         }
-      }else{
-        printf("This was a blank line\n");
       }
+      // getChar();
+      // do {
+      //   lex();
+      //   expr();
+      // } while (nextToken != EOF);
     }
-    // getChar();
-    // do {
-    //   lex();
-    //   expr();
-    // } while (nextToken != EOF);
+  }
+  else{
+    printf("more than 1 file name found\n");
   }
 }
 /*****************************************************/
