@@ -43,8 +43,8 @@ void error();
 /* main driver */
 int main(int argc, char *argv[]) {
   /* Open the input data file and process its contents */
-  if (argc == 1){
-    if ((in_fp = fopen("front.in", "r")) == NULL)
+  if (argc == 2){
+    if ((in_fp = fopen(argv[2], "r")) == NULL)
       printf("ERROR - cannot open front.in \n");
     else {
       while ((read = getline(&expression, &len, in_fp)) != -1) {
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
     }
   }
   else{
-    printf("more than 1 file name found\n");
+    printf("error in reading filename\n");
   }
 }
 /*****************************************************/
