@@ -42,11 +42,15 @@ int main() {
   if ((in_fp = fopen("front.in", "r")) == NULL)
     printf("ERROR - cannot open front.in \n");
   else {
-    getChar();
-    do {
-      lex();
-      expr();
-    } while (nextToken != EOF);
+    while ((read = getline(&line, &len, in_fp)) != -1) {
+      printf("Retrieved line of length %zu :\n", read);
+      printf("%s", line);
+    }
+    // getChar();
+    // do {
+    //   lex();
+    //   expr();
+    // } while (nextToken != EOF);
   }
 }
 /*****************************************************/
