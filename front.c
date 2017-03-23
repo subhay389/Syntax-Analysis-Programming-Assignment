@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
+
 /* Global declarations */
 /* Variables */
 int charClass;
 char lexeme [100];
+char errorstring[100];
 char nextChar;
 int lexLen;
 int token;
@@ -52,6 +55,7 @@ int main(int argc, char *argv[]) {
         //storing the line retrived from the file in variable expression
         if(read-1 != 0){
           printf("Analysis for the expression: %s", expression);
+          memset(errorstring,0,sizeof(errorstring));
           current = 0;
           getChar();
           if (expression != NULL){
@@ -153,6 +157,7 @@ void getChar() {
   if (expression[current] != '\n' && expression[current] != EOF) {
     nextChar = expression[current];
     current++;
+    errorstring[current] = nextChar;
     if (isalpha(nextChar))
     charClass = LETTER;
     else if (isdigit(
@@ -185,6 +190,7 @@ int lex() {
   lexLen = 0;
   getNonBlank();
   switch (charClass) {
+
   /* Parse identifiers */
     case LETTER:
     addChar();
@@ -195,6 +201,7 @@ int lex() {
     }
     nextToken = IDENT;
     break;
+
     /* Parse integer literals */
     case DIGIT:
     addChar();
@@ -296,4 +303,6 @@ void factor() {
 
 void error(){
   printf("error function called\n");
+  printf("Error expression%s\n", errorstring);
+  printf("Error in: %s\n", lexeme);
 }
