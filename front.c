@@ -156,8 +156,9 @@ void getCharOld() {
 void getChar() {
   if (expression[current] != '\n' && expression[current] != EOF) {
     nextChar = expression[current];
-    current++;
     errorstring[current] = nextChar;
+    current++;
+
     if (isalpha(nextChar))
     charClass = LETTER;
     else if (isdigit(
@@ -303,6 +304,6 @@ void factor() {
 
 void error(){
   printf("error function called\n");
-  printf("Error expression%s\n", errorstring);
+  printf("Error expression %s\n", errorstring);
   printf("Error in: %s\n", lexeme);
 }
