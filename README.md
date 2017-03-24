@@ -1,7 +1,9 @@
 github url: https://github.com/subhay389/Syntax-Analysis-Programming-Assignment
 
 to compile use: gcc front.c -o parser
+
 to run the file please type ./parser <filename>
+
 PS: in my case the filename is front.in so just run: ./parser front.in
 
 if any confusion or problem in running the code,  please email at subhay.manandhar@bison.howard.edu
