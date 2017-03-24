@@ -8,6 +8,10 @@ PS: in my case the filename is front.in so just run: ./parser front.in
 
 if any confusion or problem in running the code,  please email at subhay.manandhar@bison.howard.edu
 
+some restrictions:
+do not put space after expression 
+do not leave a line with only a space 
+
 commits:
 
 1.
